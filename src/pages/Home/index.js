@@ -1,15 +1,14 @@
 import React from 'react';
-import Menu from './components/Menu';
-import Data from './data/dados_iniciais.json';
-import BannerMain from './components/BannerMain';
-import Carousel from './components/Carousel';
-import Footer from './components/Footer';
+import Menu from '../../components/Menu';
+import Data from '../../data/dados_iniciais.json';
+import BannerMain from '../../components/BannerMain';
+import Carousel from '../../components/Carousel';
+import Footer from '../../components/Footer';
+import Layout from '../../components/Layout';
 
-function App() {
+function Home() {
   return (
-    <div>
-      <Menu />
-
+    <Layout>
       <BannerMain
         videoTitle={Data.categorias[0].videos[0].titulo}
         url={Data.categorias[0].videos[0].url}
@@ -40,11 +39,8 @@ function App() {
       <Carousel
         category={Data.categorias[5]}
       />
-
-      <Footer />
-
-    </div>
+    </Layout>
   );
 }
 
-export default App;
+export default Home;
