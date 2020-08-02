@@ -35,7 +35,9 @@ const RegisterCategory = () => {
   };
 
   useEffect(() => {
-    const URL = 'http://localhost:3030/categorias';
+    const URL = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080'
+      : 'https://skateflix.herokuapp.com/categorias';
     fetch(URL)
       .then((res) => res.json())
       .then((data) => setCategories(
@@ -49,7 +51,7 @@ const RegisterCategory = () => {
     <Layout>
       <h1>
         Cadastro de categoria:
-        {category.titulo}
+        {category.name}
       </h1>
 
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -91,7 +93,7 @@ const RegisterCategory = () => {
 
       <ul>
         {categories.map((cat) => (
-          <li key={cat.titulo}>{cat.titulo}</li>
+          <li key={cat.name}>{cat.name}</li>
         ))}
       </ul>
 
