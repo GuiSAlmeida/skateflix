@@ -1,17 +1,15 @@
 import React from 'react';
-import Layout from '../../../components/Layout';
 import { Link } from 'react-router-dom';
+import Layout from '../../../components/Layout';
 
-const RegisterVideo = () => {
-    return (
-        <Layout>
-            <h1>Cadastro de vídeo</h1>
+const RegisterVideo = () => (
+  <Layout>
+    <h1>Cadastro de vídeo</h1>
 
-            <Link to="/cadastro/categoria">
-                Cadastro categoria
-            </Link>
-        </Layout>
-    )
-};
+    <Link to="/cadastro/categorias">
+      Cadastro categoria
+    </Link>
+  </Layout>
+);
 
 export default RegisterVideo;
