@@ -1,42 +1,53 @@
-import React from 'react';
-import Data from '../../data/dados_iniciais.json';
+import React, { useEffect, useState } from 'react';
 import BannerMain from '../../components/BannerMain';
 import Carousel from '../../components/Carousel';
 import Layout from '../../components/Layout';
+import categoryRepository from '../../repositories/categories';
 
 function Home() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    categoryRepository.getAllWithVideos()
+      .then((categoriesWithVideos) => {
+        setData(categoriesWithVideos);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <Layout>
-      <BannerMain
-        videoTitle={Data.categorias[0].videos[0].titulo}
-        url={Data.categorias[0].videos[0].url}
-        videoDescription={"O que é front-end?"}
-      />
+    <Layout paddingAll={0}>
+      {data.length === 0 && (<div>Loading...</div>)}
 
-      <Carousel
-        ignoreFirstVideo
-        category={Data.categorias[0]}
-      />
+      {data.map((category, index) => {
+        if (index === 0) {
+          return (
+            <div key={category.id}>
+              <BannerMain
+                videoTitle={data[0].videos[0].titulo}
+                url={data[0].videos[0].url}
+                videoDescription="O que é front-end?"
+              />
 
-      <Carousel
-        category={Data.categorias[1]}
-      />
+              <Carousel
+                ignoreFirstVideo
+                category={data[0]}
+              />
+            </div>
+          );
+        }
 
-      <Carousel
-        category={Data.categorias[2]}
-      />
+        return (
+          <Carousel
+            key={category.id}
+            category={category}
+          />
+        );
+      })}
+      ;
 
-      <Carousel
-        category={Data.categorias[3]}
-      />
-
-      <Carousel
-        category={Data.categorias[4]}
-      />
-
-      <Carousel
-        category={Data.categorias[5]}
-      />
     </Layout>
   );
 }
